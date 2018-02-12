@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/webhook', ['as' => 'line.bot.message', 'uses' => 'ApiController@replySend']);
