@@ -14,9 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/webhook', function (Request $request) {
-    logger("message request : ", $request->all());
-});
+// Route::get('/webhook', function (Request $request) {
+//     logger("message request : ", $request->all());
+// });
 
+// Route::get('/webhook', ['as' => 'line.bot.message', 'uses' => 'ApiController@getMessage']);
 Route::post('/webhook', ['as' => 'line.bot.message', 'uses' => 'ApiController@getMessage']);
 // Route::get('/webhook', ['as' => 'line.bot.message', 'uses' => 'ApiController@getMessage']);
