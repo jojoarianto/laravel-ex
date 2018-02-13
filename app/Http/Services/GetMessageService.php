@@ -47,9 +47,11 @@ class GetMessageService
         //     }
         // }
 
-        $response = $this->bot->replyText($replyToken, "hello input ");
+        
         $msg = $formData['events']['0']['message'];
         logger( $msg['text'] );
+        $output = "input anda adalah " . $msg['text'];
+        $response = $this->bot->replyText($replyToken, $output);
         
         
         if ($response->isSucceeded()) {
