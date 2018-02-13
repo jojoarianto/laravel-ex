@@ -57,7 +57,8 @@ class GetMessageService
         $output = "Download image = " . $msg['text'] . " \nHasil :";
         // $response = $this->bot->replyText($replyToken, $output);
 
-        $url = $msg['text'];
+        // $url = $msg['text'];
+        $url = "https://cybercampus.unair.ac.id/foto_mhs/".$msg['text'].".JPG";
         $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder($url, $url);
         $this->bot->replyMessage($replyToken, $imageMessageBuilder);
         
