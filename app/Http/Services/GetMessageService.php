@@ -42,10 +42,17 @@ class GetMessageService
 
         // $response = $this->bot->replyText($replyToken, $imageMessageBuilder);
 
-        $msg = $formData['events']['0']['messages'];
+        // $msg = $formData['events']['0']['messages'];
 
-        $txt = $msg[0]['text'];
-        $response = $this->bot->replyText($replyToken, "Your input is = '".$txt."'");
+        // $txt = $msg[0]['text'];
+        // if($txt == "foto"){
+        //     $imageMessageBuilder = new ImageMessageBuilder('https://laravel-mysql-persistent-katakanunair.a3c1.starter-us-west-1.openshiftapps.com/img/081611633032.jpg', 'https://laravel-mysql-persistent-katakanunair.a3c1.starter-us-west-1.openshiftapps.com/img/081611633032.jpg');
+        //     $response = $this->bot->replyText($replyToken, $imageMessageBuilder);
+        // } else {
+        //     $response = $this->bot->replyText($replyToken, "Your input is = '".$txt."'");
+        // }
+            $response = $this->bot->replyText($replyToken, "Your input is = ");
+        
         
         if ($response->isSucceeded()) {
             logger("reply success!!");
