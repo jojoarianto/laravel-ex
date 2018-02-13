@@ -28,6 +28,7 @@ class ApiController extends Controller{
     public function getMessage(GetMessageRequest $request)
     {
         //logger("request : ", $request->all());
+        // return 'o';
         $this->messageService->replySend($request->json()->all());
     }
 
