@@ -50,7 +50,8 @@ class GetMessageService
         
         $msg = $formData['events']['0']['message'];
         logger( $msg['text'] );
-        $output = "input anda adalah " . $msg['text'];
+
+        $output = "Command = " . $msg['text'] . " \nHasil Pencarian :";
         $response = $this->bot->replyText($replyToken, $output);
         
         
