@@ -48,7 +48,7 @@ class GetMessageService
         // }
 
         $response = $this->bot->replyText($replyToken, "hello input ");
-        logger("jojo!!");
+        logger(var_dump($formData['events']));
         
         
         if ($response->isSucceeded()) {
