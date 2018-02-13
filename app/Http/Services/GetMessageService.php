@@ -47,13 +47,19 @@ class GetMessageService
         //     }
         // }
 
+        // http://mbot.goprint.id/img/081611633032.jpg
+
+
         
         $msg = $formData['events']['0']['message'];
         logger( $msg['text'] );
 
-        $output = "Command = " . $msg['text'] . " \nHasil Pencarian :";
-        $response = $this->bot->replyText($replyToken, $output);
-        
+        $output = "Pencarian = " . $msg['text'] . " \nHasil :";
+        // $response = $this->bot->replyText($replyToken, $output);
+
+
+        $imageMessageBuilder = new ImageMessageBuilder('http://mbot.goprint.id/img/081611633032.jpg', 'http://mbot.goprint.id/img/081611633032.jpg');
+        $this->bot->replyMessage($replyToken, $imageMessageBuilder);
         
         if ($response->isSucceeded()) {
             logger("reply success!!");
