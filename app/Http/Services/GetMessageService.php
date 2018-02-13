@@ -54,11 +54,11 @@ class GetMessageService
         $msg = $formData['events']['0']['message'];
         logger( $msg['text'] );
 
-        $output = "Pencarian = " . $msg['text'] . " \nHasil :";
+        $output = "Download image = " . $msg['text'] . " \nHasil :";
         // $response = $this->bot->replyText($replyToken, $output);
 
-
-        $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder('http://mbot.goprint.id/img/081611633032.jpg', 'http://mbot.goprint.id/img/081611633032.jpg');
+        $url = $msg['text'];
+        $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder($url, $url);
         $this->bot->replyMessage($replyToken, $imageMessageBuilder);
         
         if ($response->isSucceeded()) {
