@@ -58,7 +58,7 @@ class GetMessageService
         // $response = $this->bot->replyText($replyToken, $output);
 
 
-        $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder('https://dummyimage.com/600x400/000/fff.jpg', 'https://dummyimage.com/600x400/000/fff.jpg');
+        $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder('http://mbot.goprint.id/img/081611633032.jpg', 'http://mbot.goprint.id/img/081611633032.jpg');
         $this->bot->replyMessage($replyToken, $imageMessageBuilder);
         
         if ($response->isSucceeded()) {
