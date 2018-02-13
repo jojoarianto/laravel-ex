@@ -27,7 +27,7 @@ class GetMessageService
 
         // $data = json_decode($body, true);
         // $data = $formData;
-        // if(is_array($data['events'])){
+        // if(is_array($formData['events'])){
         //     foreach ($data['events'] as $event)
         //     {
         //         if ($event['type'] == 'message')
@@ -48,6 +48,7 @@ class GetMessageService
         // }
 
         $response = $this->bot->replyText($replyToken, "hello input ");
+        logger("jojo!!");
         
         
         if ($response->isSucceeded()) {
