@@ -26,28 +26,28 @@ class GetMessageService
         $this->bot = new LINEBot($this->client, ['channelSecret' => "7f103fc401ae13302013413730f6b606" ]);
 
         // $data = json_decode($body, true);
-        $data = $formData;
-        if(is_array($data['events'])){
-            foreach ($data['events'] as $event)
-            {
-                if ($event['type'] == 'message')
-                {
-                    if($event['message']['type'] == 'text')
-                    {
-                        // send same message as reply to user
-                        $result = $bot->replyText($event['replyToken'], $event['message']['text']);
+        // $data = $formData;
+        // if(is_array($data['events'])){
+        //     foreach ($data['events'] as $event)
+        //     {
+        //         if ($event['type'] == 'message')
+        //         {
+        //             if($event['message']['type'] == 'text')
+        //             {
+        //                 // send same message as reply to user
+        //                 $result = $bot->replyText($event['replyToken'], $event['message']['text']);
         
-                        // or we can use replyMessage() instead to send reply message
-                        // $textMessageBuilder = new TextMessageBuilder($event['message']['text']);
-                        // $result = $bot->replyMessage($event['replyToken'], $textMessageBuilder);
+        //                 // or we can use replyMessage() instead to send reply message
+        //                 // $textMessageBuilder = new TextMessageBuilder($event['message']['text']);
+        //                 // $result = $bot->replyMessage($event['replyToken'], $textMessageBuilder);
         
-                        // return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
-                    }
-                }
-            }
-        }
+        //                 // return $response->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+        //             }
+        //         }
+        //     }
+        // }
 
-        $response = $this->bot->replyText($replyToken, "Your input is = ");
+        $response = $this->bot->replyText($replyToken, "hello input ");
         
         
         if ($response->isSucceeded()) {
