@@ -47,7 +47,7 @@ class GetMessageService
                         $output = $output . "\nNIM : " . $mh->nim;
                         $output = $output . "\nPRODI : " . $mh->prodi;
 
-                        // $this->getImg($mh->nim);
+                        $this->getImg($mh->nim);
                     }
                 } else {
                     foreach ($mhs as $k => $mh) {
