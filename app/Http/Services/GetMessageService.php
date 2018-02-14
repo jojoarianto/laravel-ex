@@ -31,7 +31,7 @@ class GetMessageService
 
         // $output = "Pencarian= " . $msg['text'] . " \nHasil :";
         
-        $msg['text'] = "Cari jessica";
+        // $msg['text'] = "Cari jessica";
         $msg['text'] = strtolower($msg['text']);
         $array = explode( " ", $msg['text'] );
         if(count($array) <= 1){
