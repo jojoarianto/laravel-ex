@@ -43,7 +43,8 @@ class GetMessageService
                 $mhs = Mahasiswa::where('nama', 'like', '%' . $t . '%')->take(5)->get();
                 if( $mhs->count() == 1 ) {
                     foreach ($mhs as $k => $mh) {
-                        $output = $output . "\nNAMA : " . $mh->nama;
+                        $output = "";
+                        $output = $output . "NAMA : " . $mh->nama;
                         $output = $output . "\nNIM : " . $mh->nim;
                         $output = $output . "\nPRODI : " . $mh->prodi;
 
@@ -58,12 +59,19 @@ class GetMessageService
                         
                         $this->bot->replyMessage($replyToken, $multiMessageBuilder);
                     }
-                } else {
+                } else if($mhs->count() > 1 ) {
+                    $output = "Ditemukan " .$mhs->count(). " data";
                     foreach ($mhs as $k => $mh) {
-                        $output = $output . "\n(".$k.") " . $mh->nama;                    
+                        $output = $output . "\n(".($k+1).") " . $mh->nama;                    
                     }
                     $response = $this->bot->replyText($replyToken, $output);
+                } else {
+                    $output = $output . "Tidak ditemukan";
+                    $response = $this->bot->replyText($replyToken, $output);
                 }
+            } else if($array[0] == 'format'){
+                $output = "Format chat: \n1. cari (spasi) [nama mahasiswa 2017] \n\ncontoh: \n'cari setyo novanto'";
+                $response = $this->bot->replyText($replyToken, $output);   
             } else {
                 $output = "perintah yang anda masukkan salah";
                 $response = $this->bot->replyText($replyToken, $output);   
@@ -74,13 +82,6 @@ class GetMessageService
             logger("reply success!!");
             return;
         }
-    }
-
-    public function getImg($str)
-    {
-        $url = "https://cybercampus.unair.ac.id/foto_mhs/".$str.".JPG";
-        $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder($url, $url);
-        $this->bot->replyMessage($replyToken, $imageMessageBuilder);
     }
 
     public function cari($string)
