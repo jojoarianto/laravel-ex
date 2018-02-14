@@ -49,22 +49,27 @@ class GetMessageService
 
                         $url = "https://cybercampus.unair.ac.id/foto_mhs/".$mh->nim.".JPG";
                         $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder($url, $url);
-                        $this->bot->replyMessage($replyToken, $imageMessageBuilder);
+                        $textMessageBuilder1 = new LINEBot\MessageBuilder\TextMessageBuilder($output);
+                        // $this->bot->replyMessage($replyToken, $imageMessageBuilder);
+                        
+                        $multiMessageBuilder = new MultiMessageBuilder();
+                        $multiMessageBuilder->add($imageMessageBuilder);
+                        $multiMessageBuilder->add($textMessageBuilder1);
+                        
+                        $bot->replyMessage($replyToken, $multiMessageBuilder);
+
                     }
                 } else {
                     foreach ($mhs as $k => $mh) {
-                        // $output = $output . "<br/> (".$k.") " . $mh->nama;
                         $output = $output . "\n(".$k.") " . $mh->nama;                    
+                        $response = $this->bot->replyText($replyToken, $output);
                     }
                 }
             } else {
                 $output = "perintah yang anda masukkan salah";
+                $response = $this->bot->replyText($replyToken, $output);   
             }
         }
-        
-        // echo $output;
-
-        $response = $this->bot->replyText($replyToken, $output);
         
         if ($response->isSucceeded()) {
             logger("reply success!!");
