@@ -29,13 +29,13 @@ class GetMessageService
         $msg = $formData['events']['0']['message'];
         logger( $msg['text'] );
 
-        // $output = "Pencarian= " . $msg['text'] . " \nHasil :";
-        
-        // $msg['text'] = "Cari jessica";
         $msg['text'] = strtolower($msg['text']);
         $array = explode( " ", $msg['text'] );
         if(count($array) <= 1){
-            // input tidak valid
+            if($array[0] == 'format'){
+                $output = "Format chat: \n1. cari (spasi) [nama mahasiswa 2017] \n\ncontoh: \n'cari setyo novanto'";
+                $response = $this->bot->replyText($replyToken, $output);
+            }
         } else {
             if($array[0] == 'cari'){
                 $t = substr($msg['text'], 5);
@@ -51,7 +51,6 @@ class GetMessageService
                         $url = "https://cybercampus.unair.ac.id/foto_mhs/".$mh->nim.".JPG";
                         $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder($url, $url);
                         $textMessageBuilder1 = new LINEBot\MessageBuilder\TextMessageBuilder($output);
-                        // $this->bot->replyMessage($replyToken, $imageMessageBuilder);
                         
                         $multiMessageBuilder = new LINEBot\MessageBuilder\MultiMessageBuilder();
                         $multiMessageBuilder->add($imageMessageBuilder);
@@ -60,7 +59,8 @@ class GetMessageService
                         $this->bot->replyMessage($replyToken, $multiMessageBuilder);
                     }
                 } else if($mhs->count() > 1 ) {
-                    $output = "Ditemukan " .$mhs->count(). " data";
+                    $n = Mahasiswa::where('nama', 'like', '%' . $t . '%')->get()->count();
+                    $output = "Ditemukan " .$n. " data";
                     foreach ($mhs as $k => $mh) {
                         $output = $output . "\n(".($k+1).") " . $mh->nama;                    
                     }
@@ -69,9 +69,6 @@ class GetMessageService
                     $output = $output . "Tidak ditemukan";
                     $response = $this->bot->replyText($replyToken, $output);
                 }
-            } else if($array[0] == 'format'){
-                $output = "Format chat: \n1. cari (spasi) [nama mahasiswa 2017] \n\ncontoh: \n'cari setyo novanto'";
-                $response = $this->bot->replyText($replyToken, $output);   
             } else {
                 $output = "perintah yang anda masukkan salah";
                 $response = $this->bot->replyText($replyToken, $output);   
