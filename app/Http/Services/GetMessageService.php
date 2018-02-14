@@ -39,7 +39,7 @@ class GetMessageService
         } else {
             if($array[0] == 'cari'){
                 $t = substr($msg['text'], 5);
-                $output = 'kata kunci : '.$t;
+                $output = 'Kata kunci '.$t;
                 $mhs = Mahasiswa::where('nama', 'like', '%' . $t . '%')->take(10)->get();
                 if( $mhs->count() == 1 ) {
                     foreach ($mhs as $k => $mh) {
@@ -69,8 +69,23 @@ class GetMessageService
                     $output = $output . "\nTidak ditemukan";
                     $response = $this->bot->replyText($replyToken, $output);
                 }
+            } else if ($array[0] == 'foto') {
+                // $output = "Fitur ini tidak dapat diakses untuk sementara";
+                // $response = $this->bot->replyText($replyToken, $output);
+
+                $t = substr($msg['text'], 5);
+
+                $url = "https://cybercampus.unair.ac.id/foto_mhs/".$t.".JPG";
+                $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder($url, $url);
+                // $textMessageBuilder1 = new LINEBot\MessageBuilder\TextMessageBuilder($output);
+                
+                $multiMessageBuilder = new LINEBot\MessageBuilder\MultiMessageBuilder();
+                $multiMessageBuilder->add($imageMessageBuilder);
+                // $multiMessageBuilder->add($textMessageBuilder1);
+
+                $this->bot->replyMessage($replyToken, $multiMessageBuilder);                
             } else {
-                $output = "perintah yang anda masukkan salah";
+                $output = "Perintah yang anda masukkan salah";
                 $response = $this->bot->replyText($replyToken, $output);   
             }
         }
@@ -79,11 +94,5 @@ class GetMessageService
             logger("reply success!!");
             return;
         }
-    }
-
-    public function cari($string)
-    {
-        
-        return "";
     }
 }
