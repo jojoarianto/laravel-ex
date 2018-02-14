@@ -47,7 +47,9 @@ class GetMessageService
                         $output = $output . "\nNIM : " . $mh->nim;
                         $output = $output . "\nPRODI : " . $mh->prodi;
 
-                        $this->getImg($mh->nim);
+                        $url = "https://cybercampus.unair.ac.id/foto_mhs/".$mh->nim.".JPG";
+                        $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder($url, $url);
+                        $this->bot->replyMessage($replyToken, $imageMessageBuilder);
                     }
                 } else {
                     foreach ($mhs as $k => $mh) {
