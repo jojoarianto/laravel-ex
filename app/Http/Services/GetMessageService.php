@@ -56,7 +56,7 @@ class GetMessageService
                         $multiMessageBuilder->add($imageMessageBuilder);
                         $multiMessageBuilder->add($textMessageBuilder1);
                         
-                        $bot->replyMessage($replyToken, $multiMessageBuilder);
+                        $this->bot->replyMessage($replyToken, $multiMessageBuilder);
                     }
                 } else {
                     foreach ($mhs as $k => $mh) {
