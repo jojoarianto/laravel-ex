@@ -33,14 +33,14 @@ class GetMessageService
         $array = explode( " ", $msg['text'] );
         if(count($array) <= 1){
             if($array[0] == 'format'){
-                $output = "Format chat: \n1. cari (spasi) [nama mahasiswa 2017] \n\ncontoh: \n'cari setyo novanto'";
+                $output = "Format chat: \n1. cari (spasi) [nama mahasiswa 2017]\n2. foto (spasi) [nim] \n\ncontoh: \n1. 'cari setyo novanto'\n2. 'foto 012345678923'";
                 $response = $this->bot->replyText($replyToken, $output);
             }
         } else {
             if($array[0] == 'cari'){
                 $t = substr($msg['text'], 5);
                 $output = 'kata kunci : '.$t;
-                $mhs = Mahasiswa::where('nama', 'like', '%' . $t . '%')->take(5)->get();
+                $mhs = Mahasiswa::where('nama', 'like', '%' . $t . '%')->take(10)->get();
                 if( $mhs->count() == 1 ) {
                     foreach ($mhs as $k => $mh) {
                         $output = "";
@@ -66,7 +66,7 @@ class GetMessageService
                     }
                     $response = $this->bot->replyText($replyToken, $output);
                 } else {
-                    $output = $output . "Tidak ditemukan";
+                    $output = $output . "\nTidak ditemukan";
                     $response = $this->bot->replyText($replyToken, $output);
                 }
             } else {
