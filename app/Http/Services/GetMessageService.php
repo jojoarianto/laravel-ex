@@ -41,9 +41,19 @@ class GetMessageService
                 $t = substr($msg['text'], 5);
                 $output = 'kata kunci : '.$t;
                 $mhs = Mahasiswa::where('nama', 'like', '%' . $t . '%')->take(5)->get();
-                foreach ($mhs as $k => $mh) {
-                    // $output = $output . "<br/> (".$k.") " . $mh->nama;
-                    $output = $output . "\n(".$k.") " . $mh->nama;                    
+                if( $mhs->count() == 1 ) {
+                    foreach ($mhs as $k => $mh) {
+                        $output = $output . "\nNAMA : " . $mh->nama;
+                        $output = $output . "\nNIM : " . $mh->nim;
+                        $output = $output . "\nPRODI : " . $mh->prodi;
+
+                        // $this->getImg($mh->nim);
+                    }
+                } else {
+                    foreach ($mhs as $k => $mh) {
+                        // $output = $output . "<br/> (".$k.") " . $mh->nama;
+                        $output = $output . "\n(".$k.") " . $mh->nama;                    
+                    }
                 }
             } else {
                 $output = "perintah yang anda masukkan salah";
@@ -60,9 +70,9 @@ class GetMessageService
         }
     }
 
-    public function getImg()
+    public function getImg($str)
     {
-        $url = "https://cybercampus.unair.ac.id/foto_mhs/".$msg['text'].".JPG";
+        $url = "https://cybercampus.unair.ac.id/foto_mhs/".$str.".JPG";
         $imageMessageBuilder = new LINEBot\MessageBuilder\ImageMessageBuilder($url, $url);
         $this->bot->replyMessage($replyToken, $imageMessageBuilder);
     }
